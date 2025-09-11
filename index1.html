@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Acessos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f4f4f9;
+    }
+
+    h1 {
+      color: #333;
+    }
+    a{
+        font-size: 40px;
+        color: hsl(251, 85%, 74%);
+        display: flex;
+        justify-content: center;
+     }
+    form {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 99%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background:  #533ca5;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background:  #533ca5;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #fff;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de Acessos</h1>
+
+  <form id="formAcesso">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" required>
+
+    <label for="dataAcesso"><Data></Data>:</label>
+    <input type="text" id="dataAcesso" required>
+
+    <button type="submit">Cadastrar Acesso</button>
+  </form>
+
+  <h2>Lista de acessos</h2>
+  <ul id="listaAcessos"></ul>
+
+  <script>
+    const form = document.getElementById("formAcesso");
+    const lista = document.getElementById("listaAcessos");
+
+    async function cadastrarNome(nome, dataAcesso) {
+      try {
+        // Seleciona a rota a ser usada
+        const resposta = await fetch('http://localhost:3000/cadNome', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
+          body: JSON.stringify({
+            nome: nome,
+            dataAcesso: dataAcesso
+          })
+      });
+
+      // A variável dados recebe um objeto produto
+      const dados = await resposta.json();
+
+      if (resposta.ok) {
+        console.log("O produto foi cadastrado com sucesso")
+      } else {
+        switch (resposta.status) {
+          case 400:
+            console.warn('⚠️ Produto não encontrado');
+            break;
+          case 401:
+            console.warn('⚠️ Produto não encontrado');
+            break;
+          case 500:
+            console.warn('💥 Erro interno no servidor. Tente novamente mais tarde.');
+            break;
+          default:
+            console.warn(`❗ Erro inesperado: ${resposta.status}`);
+        }
+
+        console.debug('Detalhes do erro:', dados.mensagem || dados);
+      }
+    } catch (erro) {
+      console.error('🚫 Erro ao tentar buscar o produto:', erro.message);
+    }}
+
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // impede o reload da página
+
+      const nome = document.getElementById("nome").value;
+      const dataAcesso = document.getElementById("dataAcesso").value;
+
+      nomeUpper = nome.toUpperCase();
+      // cadastra o produto no banco de dados
+      cadastrarNome(nomeUpper, dataAcesso);
+
+      // cria o item da lista
+      const li = document.createElement("li");
+      li.textContent = `${nomeUpper} - ${dataAcesso}`;
+
+      // adiciona na lista
+      lista.appendChild(li);
+
+      // limpa os campos
+      form.reset();
+    });
+  </script>
+  <a href="exercicio12+1.html"><p> &#x26AA; Início </a>
+</body>
+</html>

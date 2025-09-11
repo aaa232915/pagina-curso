@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Produtos</title>
+  <style>
+    body{
+            background-color: rgba(8, 0, 43, 0.849);
+            color: rgb(245, 245, 245);
+            font-size: larger;
+             margin: 30px;
+        }
+        h1{
+            display: flex;
+            font-size: 90px ;
+            justify-content: center;
+        }
+        h2{
+            text-indent: 20px;
+            display: flex;
+            font-size: 60px;
+            color: white;
+            justify-content: center;
+        }
+        footer{
+            font-size: 40px;
+            color: hsl(251, 85%, 74%);
+            display: flex;
+            justify-content: center;
+           
+        }
+        
+        .mn{
+            
+            display: inline;
+            justify-content: center;
+        }
+        ul{
+            font-size: 10px;
+        }
+        .logo{
+            display: flex;
+            margin-bottom: 50px;
+            margin-top: 50px;
+            margin-left: 400px;
+            margin-right: 20px;
+        }
+          div{ 
+             display: flex; 
+            
+         } 
+         .opc{ 
+            display: inline;
+            justify-content: center;
+            border: solid white;
+           
+        }
+        .paragrafo{
+            display: inline;
+            justify-items: center;
+        }
+        .endereco{
+            display: inline;
+            justify-items: center;
+            text-align: center;
+        }
+        .telefone{
+             display: inline;
+            justify-items: center;
+            text-align: center;
+        } 
+        form {
+        margin-bottom: 20px;
+        padding: 15px;
+        background:rgba(8, 0, 43, 0.849);
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input, button {
+        padding: 8px;
+        margin: 5px 0;
+        width: 99%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        }
+
+        button {
+        background: #a89ae9;
+        color: rgb(8, 8, 8);
+        font-weight: bold;
+        cursor: pointer;
+        }
+
+        button:hover {
+        background: rgba(8, 0, 43, 0.849);
+        }
+
+        ul {
+        list-style: none;
+        padding: 0;
+        }
+
+        li {
+        background: rgba(8, 0, 43, 0.849);
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        font-size: 20px;
+        }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de acessos</h1>
+
+  <form id="formAcesso">
+    <label for="nome">Seu nome:</label>
+    <input type="text" id="nome" required>
+
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Lista de acessos</h2>
+  <ul id="listaAcessos"></ul>
+
+  <script>
+    const form = document.getElementById("formAcesso");
+    const lista = document.getElementById("listaAcessos");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // impede o reload da página
+
+      const nome = document.getElementById("nome").value;
+     
+
+      // cria o item da lista
+      const li = document.createElement("li");
+      li.textContent = `${nome}`;
+
+      // adiciona na lista
+      lista.appendChild(li);
+
+      // limpa os campos
+      form.reset();
+    });
+
+    
+        
+                
+    
+       
+  </script>
+  <footer><a href="exercicio12+1.html"><p>Início</p></a></footer>
+</body>
+</html>
