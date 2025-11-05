@@ -18,7 +18,7 @@
     }
     ul{
         
-        font-size: 30px;
+       
         /* text-indent: 30px; */
         text-align: justify;
     }
@@ -57,10 +57,14 @@
         
     }
     .texto{
+     
+        text-align: justify;
+        /* background-color: rgba(242, 233, 250, 0.377); */
         border: solid white;
         margin-right:  20px;
         margin-left: 20px;
         margin-top: 100px;
+        color: white;
         
     }
     .imagem3{
@@ -68,9 +72,22 @@
         margin-right:  50px;
         margin-left: 40px;
     }
-    
-    
-    
+    .listagem{
+        font-size: 40px;
+    }
+    ul{
+        text-align: justify;
+        margin-right: 10px;
+    }
+    .horario_duracao{
+        border: solid white;
+        display: flex;
+        margin-left: 100px;
+        width: 300px;
+        height: 300px;
+        font-size: 20px;
+        background-color: rgba(196, 175, 255, 0.37);
+    }
     </style>
     
 </head>
@@ -78,11 +95,15 @@
     <h2>Principas informações do curso:</h2>
 
     <div class="texto">
-        <section class="listagem">
+        <section class="horario_duracao">
             <ul>
                 <li>O curso de Desenvolvimento de sistemas, tem a duração de 3 semestres (1 ano e meio); </li>
                 <li>As aulas ocorrem de segunda-feira a sexta-feira, das 18:20 as 22:00;</li>
+        </section>
+
+        <section class="objetivo">
                 <li>Tem como objetivo ensinar a alunos do ensino médio sobre como programar e os principais aspectos sobre tecnologia e computação;<br></li>  
+        </section>
                 <li>Esse curso é oferecido pelo governo federal, para que mais jovens tenham a oportunidade de realizá-lo, em vista <br> 
             que além de ser gratuito, ele ainda oferece uma ajuda financeira para o aluno se locomover e se alimentar no 
             período das aulas;</li>
@@ -93,7 +114,7 @@
             
                 </ul> 
 
-        </section>
+        
     </div>
     
     <!--<footer><a href="exercicio12+1.html"><p>Inicio</p></footer></a>-->
@@ -125,6 +146,107 @@
         <a href="exercicio12+1.html"><p>Inicio</p></a>
        
     </div>
-    
+
+    <!-- Código pagina de conversas -->
+     <main id="menuConversas" style="width: 500px; height: 450px; position: fixed; background-color: #FFFFFF; z-index: 3; left: 100px; top: 520px; border-radius: 30px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); z-index: 0; opacity: 0; text-align: center;" >
+        <div style="background-color: #2896F3; height: 50px; border-radius: 30px 30px 0px 0px;padding: 5px; padding-left: 20px; display: flex;">
+            <div style="width: 50px; height: 50px; overflow: hidden; background-color: #cacaca; border-radius: 999px;">
+                <img src="ICONES/willian.jpg" alt="" width="52px">
+                <div style="position: fixed; top: 5px; width: 15px; height: 15px; background-color: rgb(28, 253, 20); border-radius: 999px; left: 55px;">
+
+            </div>
+            </div>
+            <h1 style="font-size: 22px; color: #FDFBFB; padding-left: 15px; padding-top: 5px;">willianlendario</h1>
+
+        </div>
+        <div style="display: flex; text-align: center; margin-top: 335px;">
+            <input type="text" name="" id="inputMenuMensagem" placeholder="Digite Algo..." style="width: 390px; border-radius: 20px; border-color: #2896F3; height: 40px; border-width: 3px; font-size: 16px; padding-left: 20px;  outline: none; border-style: solid; margin-left: 20px;">
+            <button style="width: 52px; height: 52px; background-color: #2896F3; border: 0; border-radius: 50%; cursor: pointer; margin-left: 10px;" id="enviarMensagem" onclick="enviarMensagem()">
+                <img src="ICONES/direct.png" alt="" style="width: 50px;">
+            </button>
+        </div>
+        <div style=" width: 460px; height: 310px; position: absolute; bottom: 75px; left: 25px; overflow-y: auto;" id="divMensagens">
+            <div style="background-color: gray; border-radius: 20px 20px 20px 0px; text-align: center; color: white; padding: 10px; width: 150px; font-weight: 900;">
+                <span>Salve Manow</span>
+                <img src="ICONES/visualizar.png" alt="" style="width: 20px; position: absolute; bottom: 5px; right: 10px;">
+            </div>
+
+        </div>
+    </main>
+    <main id="menuConversasParede" style="width: 500px; height: 450px; position: fixed; background-color: #f00505; z-index: 3; left: 1470px; top: 490px; border-radius: 10px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); z-index: 1; opacity: 0;">
+    </main>
+    <input type="text" id="inputPostagens" style="width: 200px; height: 30px; border-radius: 5px; position: fixed; top: 520px; left: 190px; outline: none; padding-left: 5px; border-style: solid; z-index: 0; opacity: 0;" placeholder="Coloque o URL da imagem aqui">
+    <button style="position: fixed; width: 35px; height: 35px; left: 400px; top: 519px; border-radius: 999px; cursor: pointer; background-color: transparent; border: 0; z-index: 0; opacity: 0;" onclick="adicionarPostagem()" id="botaoPostagens">
+        <img src="ICONES/adicionar.png" alt="" style="width: 35px;">
+    </button>
+     <button style="position: fixed; left: 2020px; top: 950px; width: 70px; height: 70px; border: 0px; border-radius: 999px; cursor: pointer; background-color: transparent; z-index: 3;" class="animacao" onclick="menuConversas(this)" id="botaoAbrirConversa">
+            <div style="width: 60px; height: 60px; overflow: hidden; border-radius: 999px;">
+                <img src="ICONES/willian.jpg" alt="" width="72px">
+            </div>
+            <div style="position: fixed; top: 4px; width: 15px; height: 15px; background-color: rgb(250, 8, 8); border-radius: 999px; left: 42px;">
+
+            </div>
+        </button>
 </body>
+
+    <script>
+        function menuConversas(elemento){
+        const menu = document.getElementById('menuConversas');
+        const parede = document.getElementById('menuConversasParede');
+        const botaoAbrir = document.getElementById('botaoAbrirConversa');
+        const botaoFechar = document.getElementById('botaoFecharConversa');
+        menu.style.zIndex = '2';
+        menu.style.opacity = '1';
+        parede.style.zIndex = '0';
+        botaoAbrir.style.zIndex = '1';
+        botaoAbrir.style.opacity = '0';
+        botaoFechar.style.opacity = '1';
+        botaoFechar.style.zIndex = '3';
+        menu.classList.add('aberto');  
+        botaoFechar.classList.remove('girando');
+        
+    }
+    function menuConversasSair(elemento){
+        const menu = document.getElementById('menuConversas');
+        const parede = document.getElementById('menuConversasParede');
+        const botaoAbrir = document.getElementById('botaoAbrirConversa');
+        const botaoFechar = document.getElementById('botaoFecharConversa');
+        menu.style.zIndex = '0';
+        menu.style.opacity = '0';
+        parede.style.zIndex = '1';
+        botaoAbrir.style.zIndex = '3';
+        botaoFechar.style.zIndex = '1';
+        botaoAbrir.style.opacity = '1';
+        botaoFechar.style.opacity = '0';
+        menu.classList.remove('aberto');
+        botaoFechar.classList.add('girando');
+    }
+    function enviarMensagem() {
+    const input = document.querySelector('#menuConversas input[type="text"]');
+    const texto = input.value.trim();
+
+    if (texto === "") return;
+
+    const containerMensagens = document.querySelector('#menuConversas > div:nth-of-type(3)');
+
+    const novaMensagem = document.createElement('div');
+    novaMensagem.style.backgroundColor = '#2896F3';
+    novaMensagem.style.borderRadius = '20px 20px 0px 20px';
+    novaMensagem.style.color = 'white';
+    novaMensagem.style.padding = '10px';
+    novaMensagem.style.width = 'fit-content';
+    novaMensagem.style.maxWidth = '70%';
+    novaMensagem.style.marginBottom = '10px';
+    novaMensagem.style.marginLeft = 'auto'; 
+    novaMensagem.style.marginRight = '0px';
+    novaMensagem.style.fontWeight = 'bold';
+    novaMensagem.innerText = texto;
+
+    containerMensagens.appendChild(novaMensagem);
+
+    input.value = "";
+    containerMensagens.scrollTop = containerMensagens.scrollHeight;
+}
+
+    </script>
 </html>

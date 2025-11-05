@@ -27,7 +27,7 @@ app.post('/cadNome', (req, res) => {
     return res.status(400).json({ error: 'Dados incompletos' });
   }
 
-  //Realiza a inserção dos dados recebidos no banco de dados
+  // Realiza a inserção dos dados recebidos no banco de dados
   const sql = 'INSERT INTO nomes (nome, dataAcesso) VALUES (?,?)';
   db.query(sql, [nome, dataAcesso], (err, result) => {
     if (err) {
@@ -52,6 +52,28 @@ app.get('/nomes', (req, res) => {
   });
 });
 
+
+
+
+app.post('/entrarAlunos', async (req, res) => {
+  const { nome_alunos, datadenasc_alunos } = req.body;
+
+  if (!nomeUsuario || senha) {
+    return res.status(400).json({ error: 'Os campos nome do aluno e a data de nascimento são obrigatórios' });
+  }
+
+  try {
+    // Query para buscar usuários com nome parecido
+    const [rows] = await pool.execute(
+      'SELECT * FROM users WHERE name LIKE ?', [`%${nome_alunos, datadenasc_alunos}%`]
+    );
+
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao buscar usuários' });
+  }
+});
 
 // Inicializa o servidor
 app.listen(PORT, () => {
