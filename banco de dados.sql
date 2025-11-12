@@ -1,39 +1,54 @@
-create database appfake;
 use appfake;
 
-CREATE table login (
-	senha int(4) NOT null,
-    nome varchar(30) not null);
-    
-create table professores (
-nome_professor varchar(30) not null,
-materia_professor varchar(20) not null);
 
-create table alunos (
-id_alunos   INTEGER PRIMARY KEY AUTO_INCREMENT,
-nome_alunos varchar(200) not null,
-media_alunos float not null,
-datadenasci_alunos varchar(10) null,
-semestre_alunos int not null),
-primary key(id_alunos)
-)default charset = utf8;
+-- Criar tabela de login
+CREATE TABLE login (
+    senha INT NOT NULL,
+    nome VARCHAR(30) NOT NULL
+);
 
-create table materias (
-nome_materia varchar(20) not null,
-semestre_materias int not null,
-aulasporsemana_materias int not null,
-professorqueensina_materias varchar(30) not null,
-notas_materias int not null);
+-- Criar tabela de professores
+CREATE TABLE professores (
+    nome_professor VARCHAR(30) NOT NULL,
+    materia_professor VARCHAR(20) NOT NULL
+);
 
-drop table materias;
-drop table alunos;
+-- Criar tabela de alunos
+CREATE TABLE alunos (
+    id_alunos INT AUTO_INCREMENT PRIMARY KEY,
+    nome_alunos VARCHAR(200) NOT NULL,
+    media_alunos FLOAT NOT NULL,
+    datadenasci_alunos VARCHAR(10),
+    semestre_alunos INT NOT NULL
+) DEFAULT CHARSET=utf8;
 
-insert into alunos values
-(default, 'Arthur Mariano da Luz', '9.0', '29.04.2009', '3'),
-(default, 'Ana Paula Gatto', '9.5', '23.03.2009', '3'),
-(default, 'Thaila Casal', '9.5', '15.08.2008', '3'),
-(default, 'Gabriela Biesek', '9.5', '23.10.2008', '3');
+-- Criar tabela de matérias
+CREATE TABLE materias (
+    nome_materia VARCHAR(20) NOT NULL,
+    semestre_materias INT NOT NULL,
+    aulasporsemana_materias INT NOT NULL,
+    professorqueensina_materias VARCHAR(30) NOT NULL,
+    notas_materias INT NOT NULL
+);
 
+-- Excluir tabelas (se necessário)
+DROP TABLE IF EXISTS materias;
+DROP TABLE IF EXISTS alunos;
 
+-- Recriar tabela de alunos para inserção
+CREATE TABLE alunos (
+    id_alunos INT AUTO_INCREMENT PRIMARY KEY,
+    nome_alunos VARCHAR(200) NOT NULL,
+    media_alunos FLOAT NOT NULL,
+    datadenasci_alunos VARCHAR(10),
+    semestre_alunos INT NOT NULL
+) DEFAULT CHARSET=utf8;
 
-use appfake;
+-- Inserir dados na tabela alunos
+INSERT INTO alunos VALUES
+(DEFAULT, 'Arthur Mariano da Luz', 9.0, '29.04.2009', 3),
+(DEFAULT, 'Ana Paula Gatto', 9.5, '23.03.2009', 3),
+(DEFAULT, 'Thaila Casal', 9.5, '15.08.2008', 3),
+(DEFAULT, 'Gabriela Biesek', 9.5, '23.10.2008', 3);
+
+select * from alunos;
