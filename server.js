@@ -18,18 +18,18 @@ app.use(cors())
 const PORT = process.env.PORT || 3000;
 
 //Rota POST - Cadastrar novo produto
-app.post('/cadNome', (req, res) => {
+app.post('/cadAluno', (req, res) => {
   // As variáveis dentro dos {} recebem os dados que vieram do front-end
-  const { nome, dataAcesso } = req.body;
+  const { nome_alunos, datadenasci_alunos, semestre_alunos, senha } = req.body;
 
   //Se os dados que vieram do font-end forem em branco
-  if (!nome || !dataAcesso) {
+  if (!nome_alunos || !datadenasci_alunos|| !semestre_alunos || !senha) {
     return res.status(400).json({ error: 'Dados incompletos' });
   }
 
   // Realiza a inserção dos dados recebidos no banco de dados
-  const sql = 'INSERT INTO nomes (nome, dataAcesso) VALUES (?,?)';
-  db.query(sql, [nome, dataAcesso], (err, result) => {
+  const sql = 'INSERT INTO alunos (nome_alunos, datadenasci_alunos, semestre_alunos, senha) VALUES (?,?,?,?)';
+  db.query(sql, [nome_alunos, datadenasci_alunos, semestre_alunos, senha], (err, result) => {
     if (err) {
       if (err.code === 'ER_DUP_ENTRY') {
         return res.status(409).json({ error: 'Esse produto já está cadastrado' });
@@ -42,8 +42,8 @@ app.post('/cadNome', (req, res) => {
   });
 });
 
-app.get('/nomes', (req, res) => {
-  const sql = 'SELECT * FROM nomes';
+app.get('/alunos', (req, res) => {
+  const sql = 'SELECT * FROM alunos';
   db.query(sql, (err, results) => {
     if (err) {
       return res.status(500).json({ error: err.message });
@@ -56,16 +56,16 @@ app.get('/nomes', (req, res) => {
 
 
 app.post('/entrarAlunos', async (req, res) => {
-  const { nome_alunos, datadenasc_alunos } = req.body;
+  const { nome_alunos, datadenasc_alunos, semestre_alunos, senha } = req.body;
 
-  if (!nomeUsuario || senha) {
+  if (!nome_alunos || !datadenasc_alunos || !semestre_alunos || !senha) {
     return res.status(400).json({ error: 'Os campos nome do aluno e a data de nascimento são obrigatórios' });
   }
 
   try {
     // Query para buscar usuários com nome parecido
     const [rows] = await pool.execute(
-      'SELECT * FROM users WHERE name LIKE ?', [`%${nome_alunos, datadenasc_alunos}%`]
+      'SELECT * FROM users WHERE name LIKE ?', [`%${nome_alunos, datadenasc_alunos, semestre_alunos, senha}%`]
     );
 
     res.json(rows);

@@ -40,6 +40,22 @@ app.post('/cadastro', (req, res) => {
     // Em caso de sucesso encaminha uma mensagem e o id do produto
     res.status(201).json({ message: 'Cadastro realizado com sucesso', id: result.insertId });
   });
+
+  const form = document.getElementById('cadastro');
+
+            form.addEventListener("submit", function(event){
+                event.preventDefault();
+                
+                let nome = document.getElementById('nome').value;
+                let user = document.getElementById('user').value;
+                let idade = document.getElementById('idade').value;
+                let email = document.getElementById('email').value;
+                let senha = document.getElementById('senha').value;
+
+                cadastrarUsuario(nome, user, idade, email, senha);
+
+                
+            });
 });
 
 

@@ -143,6 +143,96 @@
 
     </script>
 
+<!-- codigo para pegar de base | 
+                               V-->
+<body>
+    <form id="formCadastro"> 
+    <h1 >Cadastrar como aluno</h1>
+    <br>
+    <label for="nomeAluno" aria-placeholder="Ex: Ana Paula Gatto" >Nome completo do aluno/a:</label>
+    <input type="text" id="nomeAluno" required>
+    <label for="dataNasc" aria-placeholder="Ex: 23032009">Data de nascimento do aluno:</label>
+    <input type="date" id="dataNasc" required>
+    <label for="semestre" aria-placeholder="Ex: 3">Semestre atual:</label>
+    <input type="text" id="semestre" required>
+    <label for="senha" aria-placeholder="Ex: ana23">Crie uma senha de até 20 digitos:</label>
+    <input type="password" id="senha" required>
+
+
+      <button type="submit">cadastar-se</button>
+
+    <a href="entrarAluno.html"><p>Já tenho conta</p></a>
+  </form>
+    <script>
+    
+    const form = document.getElementById("formCadastro");
+    // const lista = document.getElementById("listaAcessos");
+
+    async function cadAluno(nomeAluno, dataNasc, semestre, senha ) {
+      try {
+        
+        // Seleciona a rota a ser usada
+        const resposta = await fetch('http://localhost:3000/cadAluno', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
+          body: JSON.stringify({
+            nome_alunos: nomeAluno,
+            datadenasci_alunos: dataNasc, 
+            semestre_alunos: semestre,
+            senha: senha
+          })
+      });
+  
+      // A variável dados recebe um objeto produto
+      const dados = await resposta.json();
+    
+      if (resposta.ok) {
+        console.log("Login feito.")
+        window.open('paginaInicial.html', '_blank');// abre em nova aba
+        
+
+      } else {
+        switch (resposta.status) {
+          case 400:
+            console.warn('⚠️ Produto não encontrado');
+            break;
+          case 401:
+            console.warn('⚠️ Produto não encontrado');
+            break;
+          case 500:
+            console.warn('💥 Erro interno no servidor. Tente novamente mais tarde.');
+            break;
+          default:
+            console.warn(`❗ Erro inesperado: ${resposta.status}`);
+        }
+
+        console.debug('Detalhes do erro:', dados.mensagem || dados);
+      }} catch (erro) {
+       console.error('🚫 Erro ao tentar buscar o produto:', erro.message);
+      }
+      
+    }
+    
+   
+            form.addEventListener("submit", function(event){
+                event.preventDefault();
+                
+                let nome_alunos = document.getElementById('nomeAluno').value;
+                let datadenasci_alunos = document.getElementById('dataNasc').value;
+                let semestre_alunos = document.getElementById('semestre').value;
+                let senha = document.getElementById('senha').value;
+             
+
+                cadAluno(nome_alunos, datadenasci_alunos, semestre_alunos, senha);  
+
+                
+            });
+            alert("Bem-vindo "+nome_alunos);
+    
+    </script>
 
     
 </body>

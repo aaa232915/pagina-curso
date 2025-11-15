@@ -76,7 +76,7 @@
     }
 </style>
 <body>
-    <form id="formEntrarConta"> 
+    <form id="formCadastro"> 
     <h1 >Cadastrar como aluno</h1>
     <br>
     <label for="nomeAluno" aria-placeholder="Ex: Ana Paula Gatto" >Nome completo do aluno/a:</label>
@@ -95,23 +95,24 @@
   </form>
     <script>
     
-    const form = document.getElementById("formEntrarConta");
+    const form = document.getElementById("formCadastro");
     // const lista = document.getElementById("listaAcessos");
 
-    async function entrarConta(nomeAluno, dataNasc, senha ) {
+    async function cadAluno(nomeAluno, dataNasc, semestre, senha ) {
       try {
+        
         // Seleciona a rota a ser usada
-        const resposta = await fetch('http://localhost:3000/cadastarAluno', {
+        const resposta = await fetch('http://localhost:3000/cadAluno', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
           body: JSON.stringify({
-            nomeAluno: nome_alunos,
-            dataNasc: datadenasci_alunos,
-            semestre: semestre_alunos,
-            senha: senha_alunos
+            nome_alunos: nomeAluno,
+            datadenasci_alunos: dataNasc, 
+            semestre_alunos: semestre,
+            senha: senha
           })
       });
   
@@ -120,7 +121,9 @@
     
       if (resposta.ok) {
         console.log("Login feito.")
-        window.open('paginaInicial.html', '_blank');  // abre em nova aba
+        window.open('paginaInicial.html', '_blank');// abre em nova aba
+        
+
       } else {
         switch (resposta.status) {
           case 400:
@@ -140,9 +143,25 @@
       }} catch (erro) {
        console.error('🚫 Erro ao tentar buscar o produto:', erro.message);
       }
+      
     }
+    
    
-    entrarConta(nomeAluno, dataNasc, semestre, senha);  
+            form.addEventListener("submit", function(event){
+                event.preventDefault();
+                
+                let nome_alunos = document.getElementById('nomeAluno').value;
+                let datadenasci_alunos = document.getElementById('dataNasc').value;
+                let semestre_alunos = document.getElementById('semestre').value;
+                let senha = document.getElementById('senha').value;
+             
+
+                cadAluno(nome_alunos, datadenasci_alunos, semestre_alunos, senha);  
+
+                
+            });
+            alert("Bem-vindo "+nome_alunos);
+    
     </script>
 </body>
 </html>
