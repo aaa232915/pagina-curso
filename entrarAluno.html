@@ -23,7 +23,7 @@
       border-radius: 30px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       margin-left: 605px;
-      height: 300px;
+      height: 400px;
       width: 700px;
       
     }
@@ -80,8 +80,10 @@
     <br>
     <label for="nome_alunos">Nome completo do aluno/a:</label>
     <input type="text" id="nome_alunos" required>
-    <label for="dataNasc">Data de nascimento do aluno:</label>
-    <input type="date" id=" datadenasci_alunos" required>
+    <label for="datadenasci_alunos">Data de nascimento</label>
+    <input type="date" id="datadenasci_alunos" required>
+    <label for="semestre_alunos">Semestre Atual:</label>
+    <input type="number" id="semestre_alunos" required>
 
       <button type="submit">Entrar</button>
 
@@ -92,7 +94,7 @@
     const form = document.getElementById("formEntrarConta");
     // const lista = document.getElementById("listaAcessos");
 
-    async function entrarConta(nomeAluno, dataNasc ) {
+    async function entrarAluno(nome_alunos, datadenasci_alunos, semestre_alunos ) {
       try {
         // Seleciona a rota a ser usada
         const resposta = await fetch('http://localhost:3000/entrarAluno', {
@@ -103,7 +105,8 @@
           // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
           body: JSON.stringify({
             nome_alunos: nome_alunos,
-             datadenasci_alunos: datadenasci_alunos
+            datadenasci_alunos,
+            semestre_alunos: semestre_alunos
           })
       });
   
@@ -112,7 +115,7 @@
     
       if (resposta.ok) {
         console.log("Login feito.")
-        window.open('paginaInicial.html', '_blank');  // abre em nova aba
+        window.open('paginaEstudante.html', '_blank');  // abre em nova aba
       } else {
         switch (resposta.status) {
           case 400:
@@ -134,7 +137,19 @@
       }
     }
    
-   entrarConta(nome_alunos, datadenasci_alunos);
+          form.addEventListener("submit", function(event){
+                event.preventDefault();
+                
+                let nome_alunos = document.getElementById('nome_alunos').value;
+                let datadenasci_alunos = document.getElementById('datadenasci_alunos').value;
+                let semestre_alunos = document.getElementById('semestre_alunos').value;
+               
+
+                entrarAluno(nome_alunos, datadenasci_alunos, semestre_alunos);  
+
+                
+            });
+            
 
     </script>
 </body>

@@ -91,7 +91,7 @@
 
     <a href="entrarProfe.html"><p>Já tenho conta</p></a>
   </form>
-    <script>
+    <!-- <script>
     
     const form = document.getElementById("formEntrarConta");
     // const lista = document.getElementById("listaAcessos");
@@ -141,7 +141,7 @@
     }
    
 
-    </script>
+    </script> -->
 
 <!-- codigo para pegar de base | 
                                V-->
@@ -190,9 +190,10 @@
       const dados = await resposta.json();
     
       if (resposta.ok) {
+        
         console.log("Login feito.")
         window.open('paginaInicial.html', '_blank');// abre em nova aba
-        
+        alert("Bem-vindo "+nome_alunos);
 
       } else {
         switch (resposta.status) {
@@ -230,7 +231,7 @@
 
                 
             });
-            alert("Bem-vindo "+nome_alunos);
+          
     
     </script>
 

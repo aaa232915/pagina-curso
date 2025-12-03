@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página inicial</title>
+    <style>
+        .cabecalho{
+            margin-top: 5px;
+             
+             
+            height: 340px;
+        }
+        .imagemcentral{
+            
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; 
+            height: 650px;
+            width: 1800px;
+            background-size: cover;
+            background-color:rgba(62, 9, 122, 0.932);
+            
+        }
+        .menu{
+            
+            background-color: blueviolet;
+            color: white;
+            height: 650px;
+            justify-content: center;
+            width: 250PX;
+            align-items: center;
+        }
+        a{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10PX;
+           /* margin-bottom: 10px; */
+           margin-right: 10px;
+            color: white;
+           
+        }
+        .cabecalho{
+            display: flex;
+        }
+
+        /* body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    } */
+
+    .computador {
+      position: relative;
+      display: inline-block;
+    }
+
+    .computador img {
+      width: 400px; /* ajuste conforme necessário */
+      display: block;
+    }
+
+    .tela-texto {
+      position: absolute;
+      top: 40%; /* ajuste conforme a tela da imagem */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000000;
+      font-family: "Courier New", monospace;
+      font-size: 18px;
+      text-align: center;
+      width: 70%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+
+    .computador:hover .tela-texto {
+      opacity: 1;
+    }
+    .computador{
+        display: flex;
+        justify-content: center;
+        margin-top: 100px;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="cabecalho">
+     <section class="menu">
+            
+        
+        <a href="informacoes.html" style="margin-top: 35PX;"><p> SOBRE O CURSO</a></p>
+        <a href="materias.html" ><p>MATÉRIAS</p></a>
+        <a href="professores.html"><p>PROFESSORES</p></a>
+        <a href="requisitos.html"><p>REQUISITOS</p></a>
+        <a href="alunos.html"><p>ALUNOS</p></a>
+        <a href="paginaInicial.html"><p>SAIR</p></a>
+
+         <div class="computador">
+    
+                <a href="codigos.html" style="width: 10px; height: 40px;">
+                    <img src="imagemComputador-removebg-preview.png"  alt="Imagem de um computador" >
+                </a>
+        
+        </div>
+        
+        
+        </section>
+        
+            <div class="imagemcentral">
+                
+                <img src="ChatGPT Image 29 de out. de 2025, 19_18_54.png" style="border-radius: 400px; margin-bottom: 20px; width: 500px; height: 500px; " alt="imagem">
+            </div>
+
+           
+    </div>
+
+
+    
+
+
+  
+  </div>
+
+
+</body>
+</html>

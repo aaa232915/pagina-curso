@@ -79,12 +79,12 @@
     <form id="formCadastro"> 
     <h1 >Cadastrar como aluno</h1>
     <br>
-    <label for="nomeAluno" aria-placeholder="Ex: Ana Paula Gatto" >Nome completo do aluno/a:</label>
-    <input type="text" id="nomeAluno" required>
-    <label for="dataNasc" aria-placeholder="Ex: 23032009">Data de nascimento do aluno:</label>
-    <input type="date" id="dataNasc" required>
-    <label for="semestre" aria-placeholder="Ex: 3">Semestre atual:</label>
-    <input type="text" id="semestre" required>
+    <label for="nome_alunos" aria-placeholder="Ex: Ana Paula Gatto" >Nome completo do aluno/a:</label>
+    <input type="text" id="nome_alunos" required>
+    <label for="datadenasci_alunos" aria-placeholder="Ex: 23032009">Data de nascimento do aluno:</label>
+    <input type="date" id="datadenasci_alunos" required>
+    <label for="semestre_alunos" aria-placeholder="Ex: 3">Semestre atual:</label>
+    <input type="text" id="semestre_alunos" required>
     <label for="senha" aria-placeholder="Ex: ana23">Crie uma senha de até 20 digitos:</label>
     <input type="password" id="senha" required>
 
@@ -98,7 +98,7 @@
     const form = document.getElementById("formCadastro");
     // const lista = document.getElementById("listaAcessos");
 
-    async function cadAluno(nomeAluno, dataNasc, semestre, senha ) {
+    async function cadAluno(nome_alunos, datadenasci_alunos, semestre_alunos, senha ) {
       try {
         
         // Seleciona a rota a ser usada
@@ -109,9 +109,9 @@
           },
           // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
           body: JSON.stringify({
-            nome_alunos: nomeAluno,
-            datadenasci_alunos: dataNasc, 
-            semestre_alunos: semestre,
+            nome_alunos: nome_alunos,
+            datadenasci_alunos: datadenasci_alunos, 
+            semestre_alunos: semestre_alunos,
             senha: senha
           })
       });
@@ -121,7 +121,7 @@
     
       if (resposta.ok) {
         console.log("Login feito.")
-        window.open('paginaInicial.html', '_blank');// abre em nova aba
+        window.open('paginaEstudante.html', '_blank');// abre em nova aba
         
 
       } else {
@@ -150,9 +150,9 @@
             form.addEventListener("submit", function(event){
                 event.preventDefault();
                 
-                let nome_alunos = document.getElementById('nomeAluno').value;
-                let datadenasci_alunos = document.getElementById('dataNasc').value;
-                let semestre_alunos = document.getElementById('semestre').value;
+                let nome_alunos = document.getElementById('nome_alunos').value;
+                let datadenasci_alunos = document.getElementById('datadenasci_alunos').value;
+                let semestre_alunos = document.getElementById('semestre_alunos').value;
                 let senha = document.getElementById('senha').value;
              
 
@@ -160,7 +160,7 @@
 
                 
             });
-            alert("Bem-vindo "+nome_alunos);
+            
     
     </script>
 </body>
