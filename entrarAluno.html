@@ -83,7 +83,10 @@
     <label for="datadenasci_alunos">Data de nascimento</label>
     <input type="date" id="datadenasci_alunos" required>
     <label for="semestre_alunos">Semestre Atual:</label>
-    <input type="number" id="semestre_alunos" required>
+    <input type="text" id="semestre_alunos" required>
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" required>
+
 
       <button type="submit">Entrar</button>
 
@@ -94,7 +97,7 @@
     const form = document.getElementById("formEntrarConta");
     // const lista = document.getElementById("listaAcessos");
 
-    async function entrarAluno(nome_alunos, datadenasci_alunos, semestre_alunos ) {
+    async function entrarAluno(nome_alunos, datadenasci_alunos, semestre_alunos, senha ) {
       try {
         // Seleciona a rota a ser usada
         const resposta = await fetch('http://localhost:3000/entrarAluno', {
@@ -105,8 +108,9 @@
           // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
           body: JSON.stringify({
             nome_alunos: nome_alunos,
-            datadenasci_alunos,
-            semestre_alunos: semestre_alunos
+            datadenasci_alunos: datadenasci_alunos,
+            semestre_alunos: semestre_alunos,
+            senha: senha
           })
       });
   
@@ -143,9 +147,9 @@
                 let nome_alunos = document.getElementById('nome_alunos').value;
                 let datadenasci_alunos = document.getElementById('datadenasci_alunos').value;
                 let semestre_alunos = document.getElementById('semestre_alunos').value;
-               
+                let senha = document.getElementById('senha').value;
 
-                entrarAluno(nome_alunos, datadenasci_alunos, semestre_alunos);  
+                entrarAluno(nome_alunos, datadenasci_alunos, semestre_alunos, senha);  
 
                 
             });

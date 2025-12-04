@@ -57,6 +57,7 @@
       list-style: none;
       padding: 0;
     }
+    
     h2{
       text-align: center;
     }
@@ -76,112 +77,40 @@
     }
 </style>
 <body>
-    <form id="formEntrarConta"> 
+    <form id="formCadastro"> 
     <h1 >Cadastrar novo Professor</h1>
     <br>
-    <label for="nomeProfessor"  >Nome completo do professsor/a:</label>
-    <input type="text" placeholder="Ex: Ana Paula Gatto" id="nomeProfessor" required>
-    <label for="materias" >Matérias que este professor leciona:</label>
-    <input type="text" placeholder="Ex: Desenvolvimento webII, iniciação a programação" id="materias" required>
-    <label for="senha" >Crie uma senha de até 20 digitos:</label>
-    <input type="password" placeholder="Ex: ana23" id="senha" required>
-
+    <label for="nome_professor"  >Nome completo do professsor/a:</label>
+    <input type="text" placeholder="Ex: Lucas Martins" id="nome_professor" required>
+    <label for="materia_professor" >Matérias que este professor leciona:</label>
+    <input type="text" placeholder="Ex: Desenvolvimento webII, iniciação a programação" id="materia_professor" required>
+    <label for="senha" >Crie uma senha de até 20 digitos</label>
+    <input type="password" placeholder="Ex: LucasM123" id="senha" required>
+   
 
       <button type="submit">cadastar-se</button>
 
     <a href="entrarProfe.html"><p>Já tenho conta</p></a>
   </form>
-    <!-- <script>
-    
-    const form = document.getElementById("formEntrarConta");
-    // const lista = document.getElementById("listaAcessos");
 
-    async function entrarConta(nomeAluno, dataNasc, senha ) {
-      try {
-        // Seleciona a rota a ser usada
-        const resposta = await fetch('http://localhost:3000/cadastarAluno', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
-          body: JSON.stringify({
-            nomeAluno: nome_alunos,
-            dataNasc: datadenasci_alunos,
-            semestre: semestre_alunos,
-            senha: senha_alunos
-          })
-      });
-  
-      // A variável dados recebe um objeto produto
-      const dados = await resposta.json();
-    
-      if (resposta.ok) {
-        console.log("Login feito.")
-        window.open('paginaInicial.html', '_blank');  // abre em nova aba
-      } else {
-        switch (resposta.status) {
-          case 400:
-            console.warn('⚠️ Produto não encontrado');
-            break;
-          case 401:
-            console.warn('⚠️ Produto não encontrado');
-            break;
-          case 500:
-            console.warn('💥 Erro interno no servidor. Tente novamente mais tarde.');
-            break;
-          default:
-            console.warn(`❗ Erro inesperado: ${resposta.status}`);
-        }
-
-        console.debug('Detalhes do erro:', dados.mensagem || dados);
-      }} catch (erro) {
-       console.error('🚫 Erro ao tentar buscar o produto:', erro.message);
-      }
-    }
-   
-
-    </script> -->
-
-<!-- codigo para pegar de base | 
-                               V-->
-<body>
-    <form id="formCadastro"> 
-    <h1 >Cadastrar como aluno</h1>
-    <br>
-    <label for="nomeAluno" aria-placeholder="Ex: Ana Paula Gatto" >Nome completo do aluno/a:</label>
-    <input type="text" id="nomeAluno" required>
-    <label for="dataNasc" aria-placeholder="Ex: 23032009">Data de nascimento do aluno:</label>
-    <input type="date" id="dataNasc" required>
-    <label for="semestre" aria-placeholder="Ex: 3">Semestre atual:</label>
-    <input type="text" id="semestre" required>
-    <label for="senha" aria-placeholder="Ex: ana23">Crie uma senha de até 20 digitos:</label>
-    <input type="password" id="senha" required>
-
-
-      <button type="submit">cadastar-se</button>
-
-    <a href="entrarAluno.html"><p>Já tenho conta</p></a>
-  </form>
     <script>
     
     const form = document.getElementById("formCadastro");
     // const lista = document.getElementById("listaAcessos");
 
-    async function cadAluno(nomeAluno, dataNasc, semestre, senha ) {
+    async function cadProfessor(nome_professor, materia_professor,senha) {
       try {
         
         // Seleciona a rota a ser usada
-        const resposta = await fetch('http://localhost:3000/cadAluno', {
+        const resposta = await fetch('http://localhost:3000/cadProfessor', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
           body: JSON.stringify({
-            nome_alunos: nomeAluno,
-            datadenasci_alunos: dataNasc, 
-            semestre_alunos: semestre,
+            nome_professor: nome_professor,
+            materia_professor: materia_professor,
             senha: senha
           })
       });
@@ -192,8 +121,8 @@
       if (resposta.ok) {
         
         console.log("Login feito.")
-        window.open('paginaInicial.html', '_blank');// abre em nova aba
-        alert("Bem-vindo "+nome_alunos);
+        window.open('paginaProf.html', '_blank');// abre em nova aba
+        alert("Bem-vindo "+nome_professor);
 
       } else {
         switch (resposta.status) {
@@ -221,13 +150,12 @@
             form.addEventListener("submit", function(event){
                 event.preventDefault();
                 
-                let nome_alunos = document.getElementById('nomeAluno').value;
-                let datadenasci_alunos = document.getElementById('dataNasc').value;
-                let semestre_alunos = document.getElementById('semestre').value;
+                let nome_professor = document.getElementById('nome_professor').value;
+                let materia_professor = document.getElementById('materia_professor').value;
                 let senha = document.getElementById('senha').value;
              
 
-                cadAluno(nome_alunos, datadenasci_alunos, semestre_alunos, senha);  
+                cadProfessor(nome_professor, materia_professor, senha);  
 
                 
             });
