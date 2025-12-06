@@ -60,22 +60,32 @@ app.post('/cadProfessor', (req, res) => {
   const { nome_professor, materia_professor, senha } = req.body;
 
   //Se os dados que vieram do font-end forem em branco
-  if (!nome_professor || !materia_professor || !senha) {
+  if (!nome_professor || !materia_professor|| !senha) {
     return res.status(400).json({ error: 'Dados incompletos' });
   }
 
   // Realiza a inserção dos dados recebidos no banco de dados
-  const sql = 'INSERT INTO professores (nome_professor, materia_professor,senha) VALUES (?,?,?)';
+  const sql = 'INSERT INTO professores (nome_professor, materia_professor, senha) VALUES (?,?,?)';
   db.query(sql, [nome_professor, materia_professor, senha], (err, result) => {
     if (err) {
       if (err.code === 'ER_DUP_ENTRY') {
-        return res.status(409).json({ error: 'Esse professor ja foi cadastrado' });
+        return res.status(409).json({ error: 'Esse produto já está cadastrado' });
       }
       return res.status(500).json({ error: err.message });
     }
 
     // Em caso de sucesso encaminha uma mensagem e o id do produto
-    res.status(201).json({ message: 'Professor cadastrado com sucesso', nome_professor: result.insertnome_professor  });
+    res.status(201).json({ message: 'Professor cadastrado com sucesso', nome_professor: result.insertnome_professores  });
+  });
+});
+
+app.get('/professores', (req, res) => {
+  const sql = 'SELECT * FROM professores';
+  db.query(sql, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
   });
 });
 
@@ -90,59 +100,51 @@ app.get('/alunos', (req, res) => {
 });
 
 
-app.post('/entrarAluno', async (req, res) => {
+app.post('/entrarAluno', (req, res) => {
   const { nome_alunos, datadenasci_alunos, semestre_alunos, senha } = req.body;
 
   if (!nome_alunos || !datadenasci_alunos || !semestre_alunos || !senha) {
-    return res.status(400).json({ error: 'Os campos nome de usuário e a senha são obrigatórios' });
+    return res.status(400).json({ error: 'Os campos são obrigatórios' });
   }
 
-  try {
-    // Query para buscar usuários com nome parecido
-    const [rows] = await pool.execute(
-      'SELECT * FROM users WHERE name LIKE ?', [`%${nome_alunos, datadenasci_alunos, semestre_alunos, senha}%`]
-    );
+  const sql = 'SELECT * FROM alunos WHERE nome_alunos = ? AND datadenasci_alunos = ? AND semestre_alunos = ? AND senha = ?';
 
-    res.json(rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao buscar usuários' });
-  }
-});
-
-app.post('/cadTrabalho', (req, res) => {
-  // As variáveis dentro dos {} recebem os dados que vieram do front-end
-  const { materia_trabalhos, dataentrega_trabalhos, descri_trabalhos} = req.body;
-
-  //Se os dados que vieram do font-end forem em branco
-  if (!materia_trabalhos || !dataentrega_trabalhos || !descri_trabalhos) {
-    return res.status(400).json({ error: 'Dados incompletos' });
-  }
-
-  // Realiza a inserção dos dados recebidos no banco de dados
-  const sql = 'INSERT INTO trabalhos ( materia_trabalhos, dataentrega_trabalhos, descri_trabalhos) VALUES (?,?,?)';
-  db.query(sql, [ materia_trabalhos, dataentrega_trabalhos, descri_trabalhos], (err, result) => {
+  db.query(sql, [nome_alunos, datadenasci_alunos, semestre_alunos, senha], (err, results) => {
     if (err) {
-      if (err.code === 'ER_DUP_ENTRY') {
-        return res.status(409).json({ error: 'Esse trabalho ja foi cadastrado' });
-      }
-      return res.status(500).json({ error: err.message });
+      console.error(err);
+      return res.status(500).json({ error: 'Erro no banco de dados' });
     }
 
-    // Em caso de sucesso encaminha uma mensagem e o id do produto
-    res.status(201).json({ message: 'Trabalho cadastrado com sucesso' });
+    if (results.length === 0) {
+      return res.status(401).json({ error: 'Aluno não encontrado ou dados incorretos' });
+    }
+
+    res.json({ message: "Login realizado com sucesso", aluno: results[0] });
   });
 });
 
+app.post('/entrarProf', (req, res) => {
+  const { nome_professor, senha } = req.body;
 
+  if (!nome_professor || !senha) {
+    return res.status(400).json({ error: 'Os campos são obrigatórios' });
+  }
 
+  const sql = 'SELECT * FROM professores WHERE nome_professor = ? AND senha = ?';
 
+  db.query(sql, [nome_professor, senha], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Erro no banco de dados' });
+    }
 
+    if (results.length === 0) {
+      return res.status(401).json({ error: 'Aluno não encontrado ou dados incorretos' });
+    }
 
-
-
-
-
+    res.json({ message: "Login realizado com sucesso", aluno: results[0] });
+  });
+});
 
 // Inicializa o servidor
 app.listen(PORT, () => {

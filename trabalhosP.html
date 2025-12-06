@@ -23,7 +23,7 @@
       border-radius: 30px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       margin-left: 605px;
-      height: 300px;
+      height: 400px;
       width: 700px;
       
     }
@@ -75,35 +75,40 @@
     }
 </style>
 <body>
-    <form id="formEntrarConta"> 
-    <h1 >Entrar como professor</h1>
+    <form id="formCadastrartrab"> 
+    <h1 >Entrar como aluno</h1>
     <br>
-    <label for="nome_professor">Nome completo do professor/a:</label>
-    <input type="text" placeholder="Maria Sofia de Souza" id="nome_professor" required>
-    <label for="senha">Senha:</label>
-    <input type="password" placeholder="ewfwe12" id="senha" required>
+    <label for="materia_trabalhos">Matéria do trabalho:</label>
+    <input type="text" id="materia_trabalhos" required>
+    <label for="dataentrega_trabalhos">Data de entrega:</label>
+    <input type="date" id="dataentrega_trabalhos" required>
+    <label for="descri_trabalhos">Descrição do trabalho:</label>
+    <input type="text" id="descri_trabalhos" required>
+  
 
-      <button type="submit">Entrar</button>
+      <button type="submit">Lançar trabalho</button>
 
-    <a href="cadastarProfessor.html"><p>Não tenho conta</p></a>
+    <a href="paginaProf.html"><p>Voltar</p></a>
   </form>
     <script>
     
-    const form = document.getElementById("formEntrarConta");
+    const form = document.getElementById("formCadastrartrab");
     // const lista = document.getElementById("listaAcessos");
 
-    async function entrarConta(nome_professor, senha ) {
+    async function cadTrabalho(materia_trabalhos, dataentrega_trabalhos, descri_trabalhos) {
       try {
         // Seleciona a rota a ser usada
-        const resposta = await fetch('http://localhost:3000/entrarProf', {
+        const resposta = await fetch('http://localhost:3000/cadTrabalho', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           // Encaminha os dados que vieram como parametro no corpo do arquivo JSON
           body: JSON.stringify({
-            nome_professor: nome_professor,
-            senha: senha
+            materia_trabalhos: materia_trabalhos,
+            dataentrega_trabalhos: dataentrega_trabalhos,
+            descri_trabalhos: descri_trabalhos
+           
           })
       });
   
@@ -111,8 +116,8 @@
       const dados = await resposta.json();
     
       if (resposta.ok) {
-        console.log("Login feito.")
-        window.open('paginaProfessor.html', '_blank');  // abre em nova aba
+        alert("Trabalho cadastrado com sucesso.")
+        window.open('paginaProf.html', '_blank');  // abre em nova aba
       } else {
         switch (resposta.status) {
           case 400:
@@ -133,21 +138,20 @@
        console.error('🚫 Erro ao tentar buscar o produto:', erro.message);
       }
     }
-    
+   
           form.addEventListener("submit", function(event){
                 event.preventDefault();
                 
-                let nome_professor = document.getElementById('nome_professor').value;
-                let senha = document.getElementById('senha').value;
+                let materia_trabalhos = document.getElementById('materia_trabalhos').value;
+                let dataentrega_trabalhos = document.getElementById('dataentrega_trabalhos ').value;
+                let descri_trabalhos = document.getElementById('descri_trabalhos').value;
+               
 
-                entrarConta(nome_professor, senha);  
+                cadTrabalho(materia_trabalhos, dataentrega_trabalhos, descri_trabalhos);  
 
                 
             });
             
-
-    </script>
-   
 
     </script>
 </body>
