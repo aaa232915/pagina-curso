@@ -6,6 +6,30 @@
     <title>Alunos</title>
 </head>
 <body>
-    
+    <script>
+            app.get('/buscarAluno', (req, res) => {
+        const { nome, data, semestre } = req.query;
+
+        const sql = `
+            SELECT * FROM alunos 
+            WHERE nome_alunos = ?
+            AND datadenasci_alunos = ?
+            AND semestre_alunos = ?
+        `;
+
+        conexao.query(sql, [nome, data, semestre], (erro, resultado) => {
+            if (erro) {
+            return res.status(500).json({ mensagem: 'Erro no banco' });
+            }
+
+            if (resultado.length === 0) {
+            return res.status(404).json({ mensagem: 'Aluno não encontrado' });
+            }
+
+            res.json(resultado[0]);
+        });
+        });
+ </script>
+
 </body>
 </html>

@@ -89,7 +89,7 @@ app.get('/professores', (req, res) => {
   });
 });
 
-app.get('/alunos', (req, res) => {
+app.get('/buscarAluno', (req, res) => {
   const sql = 'SELECT * FROM alunos';
   db.query(sql, (err, results) => {
     if (err) {
@@ -145,6 +145,33 @@ app.post('/entrarProf', (req, res) => {
     res.json({ message: "Login realizado com sucesso", aluno: results[0] });
   });
 });
+
+//cadastro de trabalhos -- TESTAR
+
+app.post('/cadTrabalho', (req, res) => {
+  // As variáveis dentro dos {} recebem os dados que vieram do front-end
+  const { materia_trabalhos, dataentrega_trabalhos, descri_trabalhos} = req.body;
+
+  //Se os dados que vieram do font-end forem em branco
+  if (!materia_trabalhos || !dataentrega_trabalhos || !descri_trabalhos) {
+    return res.status(400).json({ error: 'Dados incompletos' });
+  }
+
+  // Realiza a inserção dos dados recebidos no banco de dados
+  const sql = 'INSERT INTO trabalhos ( materia_trabalhos, dataentrega_trabalhos, descri_trabalhos) VALUES (?,?,?)';
+  db.query(sql, [ materia_trabalhos, dataentrega_trabalhos, descri_trabalhos], (err, result) => {
+    if (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(409).json({ error: 'Esse trabalho ja foi cadastrado' });
+      }
+      return res.status(500).json({ error: err.message });
+    }
+
+    // Em caso de sucesso encaminha uma mensagem e o id do produto
+    res.status(201).json({ message: 'Trabalho cadastrado com sucesso' });
+  });
+});
+
 
 // Inicializa o servidor
 app.listen(PORT, () => {
